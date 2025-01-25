@@ -1,0 +1,95 @@
+.home-card-wrap {
+    padding-top: 500px;
+}
+
+@media screen and (min-width: 1466px) {
+    .featured-card {
+        padding: 0;
+
+        .look-inside {
+            left: -37px;
+        }
+    }
+}
+
+.home-focus {
+    .title-part {
+        margin-bottom: 194px;
+    }
+
+    .float-content {
+        margin-bottom: 95px;
+
+        p {
+            max-width: 910px;
+        }
+    }
+
+    .floating-image-wrap {
+        .img1 {
+            position: absolute;
+            display: block;
+            width: 360px;
+            height: auto;
+            top: -420px;
+            left: 1010px;
+            z-index: 6;
+        }
+    }
+}
+
+.single-work-main {
+    padding-bottom: 180px;
+}
+
+.end-cta {
+    .center {
+        padding: 100px 40px 160px;
+    }
+}
+
+.roots {
+    .intro-part {
+        padding-left: 460px;
+        min-height: 303px;
+        max-width: 1192px;
+
+        .icon {
+            left: 60px;
+        }
+    }
+}
+
+.we-specialize {
+    .img-wrap {
+        max-width: 865px;
+    }
+
+    .icon-wrap {
+        width: 430px;
+        left: 945px;
+        top: 337px;
+    }
+
+    .h-s {
+        margin-bottom: 68px;
+    }
+
+    .courier-headline {
+        margin-top: 65px;
+    }
+}
+
+.our-word-wrap {
+    .our-word {
+        padding-left: 420px;
+    }
+
+    .icon-wrap {
+        left: 375px;
+    }
+}
+
+.go-next-icon-wrap.special {
+    right: 260px;
+} 

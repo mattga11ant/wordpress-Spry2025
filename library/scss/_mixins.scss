@@ -1,0 +1,181 @@
+/*********************
+CLEARFIXIN'
+*********************/
+
+.clear {
+  clear: both;
+}
+
+/*********************
+TOOLS
+*********************/
+
+* { 
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing:    border-box; 
+    box-sizing:         border-box; 
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.iframe-wrap {
+	position: relative;
+	display: block;
+    margin-top: 35px;
+    margin-bottom: 60px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    @media screen and (min-width: 1000px) {
+        margin-top: 40px;
+        margin-bottom: 70px;
+    }
+
+    @media screen and (min-width: 1200px) {
+        margin-bottom: 80px;
+    }
+
+	&:before {
+        content: "";
+		position: relative;
+		display: block;
+		padding-top: 56.25%;
+	}
+
+	iframe {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+        border: none;
+        padding: 0 !important;
+        margin: 0 !important;
+	}
+}
+
+img {
+	position: relative;
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+/*********************
+COLORS
+*********************/
+
+$black: #12170E;
+$green: #394D3B;
+$yellow: #FAE819;
+$cream: #F1E9DD;
+$white: #FFF;
+
+/*********************
+TYPOGRAPHY
+*********************/
+
+/* text alignment */
+.text-left   { text-align: left; }
+.text-center { text-align: center; }
+.text-right  { text-align: right; }
+
+.no-margin-bottom {
+	margin-bottom: 1px;
+}
+
+.no-margin-top {
+	margin-top: 1px;
+}
+
+.no-padding-bottom {
+	padding-bottom: 1px !important;
+}
+
+.no-padding-top {
+	padding-top: 1px !important;
+}
+
+em {
+	font-style: italic;
+}
+
+strong {
+	font-weight: 700;
+}
+
+/*********************
+MIXINS
+*********************/
+
+@mixin thetransition($duration: .2s) {
+    -webkit-transition: all $duration ease-in-out;
+    -moz-transition: all $duration ease-in-out;
+    -ms-transition: all $duration ease-in-out;
+    -o-transition: all $duration ease-in-out;
+    transition: all $duration ease-in-out;
+}
+
+.animate-in {
+    transform: translate(0, 100px);
+    opacity: 0.01;
+    transition: all 0.4s ease-in-out;
+
+    &.slide {
+    	transform: translate(-100px, 0);
+    }
+
+    @media screen and (max-width: 768px) {
+        transform: translate(0, 60px);
+
+        &.slide {
+            transform: translate(-60px, 0);
+        }
+    }
+}
+
+/* Animation trigger when elements come into view */
+.animate-in.in-view {
+    transform: translate(0, 0);
+    opacity: 1;
+}
+
+/* Delays for each element */
+.delay1 {
+    transition-delay: 0.1s !important; /* 0.1s delay */
+}
+
+.delay2 {
+    transition-delay: 0.2s !important; /* 0.2s delay */
+}
+
+.delay3 {
+    transition-delay: 0.3s !important; /* 0.4s delay */
+}
+
+.delay4 {
+    transition-delay: 0.4s !important; /* 0.6s delay */
+}
+
+.delay6 {
+    transition-delay: 0.6s !important; /* 0.8s delay */
+}

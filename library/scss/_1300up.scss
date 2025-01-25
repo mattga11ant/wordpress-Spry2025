@@ -1,0 +1,50 @@
+.bg-part {
+    &.story {
+        height: 590px;
+    }
+}
+
+.page-intro-story {
+    padding: 204px 0 150px;
+
+    .image-part {
+        margin-top: -59px;
+    }
+}
+
+.roots {
+    .intro-part {
+        margin-bottom: 130px;
+        padding-left: 400px;
+        min-height: 303px;
+        max-width: 1122px;
+
+        .icon {
+            max-width: 298px;
+        }
+    }
+}
+
+.our-word-wrap {
+    .our-word {
+        padding-bottom: 200px;
+        padding-left: 350px;
+    }
+
+    .icon-wrap {
+        max-width: 596px;
+        left: 375px;
+        bottom: -5px;
+    }
+}
+
+.go-next-icon-wrap {
+    right: 330px;
+    bottom: -40px;
+}
+
+@media screen and (min-width: 1347px) {
+   .go-next-icon-wrap.special {
+        right: 180px;
+    } 
+}

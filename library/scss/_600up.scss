@@ -1,0 +1,39 @@
+.home-card-wrap {
+    padding-top: 240px;
+    margin-bottom: 32px;
+
+    .image-part {
+        padding: 0 25px 50px 25px;
+    }
+}
+
+.content-offset-wrap {
+    padding: 0 40px;
+}
+
+.formatted-content-wrap {
+    .large-quote {
+        margin: 40px 0 48px 0;
+    }
+}
+
+.single-work-main {
+    .gallery-wrap {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.we-specialize {
+    padding-bottom: 80px;
+    .img-wrap {
+        margin-bottom: 64px;
+    }
+
+    .h-s {
+        margin-bottom: 35px;
+    }
+
+    .courier-headline {
+        margin-top: 40px;
+    }
+}

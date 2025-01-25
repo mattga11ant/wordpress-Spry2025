@@ -1,0 +1,38 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Compiled CSS and JS
+*.min.css
+*.min.js
+*.map
+
+# Ignore build directories
+dist/
+build/
+
+# WordPress-specific files that should not be in version control
+*.log
+debug.log
+wp-config.php
+wp-config-*.php
+wp-content/uploads/
+wp-content/backup-*/
+
+# Ignore IDE and system files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+.vscode/
+.idea/
+
+# Ignore deployment files
+.env
+.env.local
+.env.*.local
