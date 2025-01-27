@@ -224,9 +224,16 @@ html {
 }
 
 /*FONT STYLES*/
+@font-face {
+  font-family: "Schnyder M Web";
+  src: url("../fonts/Schnyder-MDemi-Web.woff2") format("woff2"), url("../fonts/Schnyder-MDemi-Web.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
 .heading-font, .text-input-field-contact input,
-.text-input-field-contact textarea, .large-quote, .formatted-content-wrap blockquote p, .h-m2, .h-m, h3, .h-l, h2, .h-xl, h1 {
-  font-family: ivypresto-display, serif;
+.text-input-field-contact textarea, .large-quote, .formatted-content-wrap blockquote p, .h-m2, .h-m, .content-inner-normal-page-wrap h2, .content-inner-normal-page-wrap h3, h3, .h-l, h2, .h-xl, h1 {
+  font-family: "Schnyder M Web", serif;
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -383,6 +390,8 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong,
 .h-xl strong,
 .h-l strong,
 .h-m strong,
+.content-inner-normal-page-wrap h2 strong,
+.content-inner-normal-page-wrap h3 strong,
 .h-m2 strong,
 .h-s strong,
 .h-xs strong,
@@ -409,6 +418,8 @@ h1 em, h2 em, h3 em, h4 em, h5 em,
 .h-xl em,
 .h-l em,
 .h-m em,
+.content-inner-normal-page-wrap h2 em,
+.content-inner-normal-page-wrap h3 em,
 .h-m2 em,
 .h-s em,
 .h-xs em,
@@ -553,13 +564,13 @@ span.upper,
   line-height: 90%;
 }
 
-.h-m, h3 {
+.h-m, .content-inner-normal-page-wrap h2, .content-inner-normal-page-wrap h3, h3 {
   font-style: normal;
   font-weight: 400;
   font-size: calc(36px + 14 * (100vw - 320px) / 640);
   line-height: 132%;
 }
-.h-m.smaller, h3.smaller {
+.h-m.smaller, .content-inner-normal-page-wrap h2.smaller, h3.smaller {
   font-size: calc(26px + 24 * (100vw - 320px) / 640);
 }
 
@@ -621,10 +632,10 @@ span.upper,
   }
 }
 @media screen and (min-width: 960px) {
-  .h-m, h3 {
+  .h-m, .content-inner-normal-page-wrap h2, .content-inner-normal-page-wrap h3, h3 {
     font-size: 50px;
   }
-  .h-m.smaller, h3.smaller {
+  .h-m.smaller, .content-inner-normal-page-wrap h2.smaller, h3.smaller {
     font-size: 50px;
   }
 }
@@ -951,16 +962,16 @@ body.page-template-template-contact #lets-talk-button {
 .bg-part.black {
   background: #12170E;
 }
-.bg-part.green {
+.bg-part.green, .bg-part.color0 {
   background: #394D3B;
 }
 .bg-part.yellow {
   background: #FAE819;
 }
-.bg-part.cream {
+.bg-part.cream, .bg-part.color1 {
   background: #F1E9DD;
 }
-.bg-part.white {
+.bg-part.white, .bg-part.color2 {
   background: #FFF;
 }
 
@@ -988,6 +999,24 @@ body.page-template-template-contact #lets-talk-button {
   height: 100%;
   top: 0;
   left: 0;
+}
+.home-card-wrap .image-part .inner2 .bg-placeholder {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: opacity 1s ease-in-out;
+  border-radius: 0 0 20px 20px;
+}
+.home-card-wrap .image-part .inner2 .bg-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
   border-radius: 0 0 20px 20px;
 }
 .home-card-wrap .content-line {
@@ -1095,6 +1124,8 @@ body.page-template-template-contact #lets-talk-button {
   display: none;
   border-radius: 10px;
   z-index: 1;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
 }
 .home-focus .floating-image-wrap .img2 {
   position: absolute;
@@ -1164,10 +1195,10 @@ body.page-template-template-contact #lets-talk-button {
   margin-bottom: 0;
 }
 @media screen and (min-width: 600px) {
-  .large-copy-wrap.ticker .h-m, .large-copy-wrap.ticker h3 {
+  .large-copy-wrap.ticker .h-m, .large-copy-wrap.ticker .content-inner-normal-page-wrap h2, .content-inner-normal-page-wrap .large-copy-wrap.ticker h2, .large-copy-wrap.ticker h3 {
     position: relative;
   }
-  .large-copy-wrap.ticker .h-m:before, .large-copy-wrap.ticker h3:before {
+  .large-copy-wrap.ticker .h-m:before, .large-copy-wrap.ticker .content-inner-normal-page-wrap h2:before, .content-inner-normal-page-wrap .large-copy-wrap.ticker h2:before, .large-copy-wrap.ticker h3:before {
     content: "";
     position: absolute;
     display: block;
@@ -1810,6 +1841,25 @@ body.page-template-template-contact #lets-talk-button {
   left: 20px;
 }
 
+.standard-page-wrap {
+  position: relative;
+}
+.standard-page-wrap .intro-text-part,
+.standard-page-wrap h1 {
+  margin-bottom: 0 !important;
+}
+
+.content-inner-normal-page-wrap {
+  position: relative;
+  max-width: 1200px;
+}
+.content-inner-normal-page-wrap h2, .content-inner-normal-page-wrap h3, .content-inner-normal-page-wrap h4, .content-inner-normal-page-wrap h5 {
+  margin-bottom: 15px;
+  margin-top: 55px;
+}
+.content-inner-normal-page-wrap h2:first-child, .content-inner-normal-page-wrap h3:first-child, .content-inner-normal-page-wrap h4:first-child, .content-inner-normal-page-wrap h5:first-child {
+  margin-top: 0;
+}
 @media only screen and (min-width: 500px) {
   #main-site-header.scrolled-nav {
     transform: translateY(-91px) !important;

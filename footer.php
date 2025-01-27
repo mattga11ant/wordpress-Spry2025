@@ -16,13 +16,13 @@
 						<div class="incol">
 							<span class="footer-label">Visit</span>
 							<div class="footer-details">
-								<span class="item">4407 Vineland Rd.<br>D-6<br>Orlando, FL 32811</span>
+								<span class="item"><?php the_field('footer_address', 'option'); ?></span>
 							</div>
 
 							<span class="footer-label add">New Business</span>
 							<div class="footer-details">
-								<a href="tel:+14079823051" class="item">+1 (407) 982-3051</a>
-								<a href="mailto:hello@wearespry.com" class="item">hello@wearespry.com</a>
+								<a href="tel:<?php the_field('footer_phone', 'option'); ?>" class="item"><?php the_field('footer_phone', 'option'); ?></a>
+								<a href="mailto:<?php the_field('footer_email', 'option'); ?>" class="item"><?php the_field('footer_email', 'option'); ?></a>
 							</div>
 						</div>
 					</div>

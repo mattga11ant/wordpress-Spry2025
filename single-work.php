@@ -201,16 +201,15 @@ get_header();
     <section class="end-cta">
         <div class="bg-part full green"></div>
 
-        <a href="#" class="circle-callout more-work animate-in">
+        <a href="/our-work/" class="circle-callout more-work animate-in">
             <span class="main-label">More Work</span>
         </a>
 
         <div class="center animate-in">
-            <p class="white">Well, that was fun.</p>
-            <div class="h-xl yellow">Like what <br>you see?</div>
-
-            <a href="/contact/" class="cta-btn">
-                <span>Let's Talk</span>
+            <p class="white"><?php the_field('cta_text'); ?></p>
+            <div class="h-xl yellow"><?php the_field('cta_secondary_text'); ?></div>
+            <a href="<?php the_field('cta_button_link'); ?>" class="cta-btn">
+                <span><?php the_field('cta_button_text'); ?></span>
             </a>
         </div>
     </section>
@@ -223,7 +222,7 @@ get_header();
                 <div class="h-m2 black">
                     There’s more where that came from.
                     <div class="go-next-icon-wrap special">
-                        <img src="<?php bloginfo('template_directory'); ?>/library/images/icon-theresmore.svg">
+                        <img src="<?php bloginfo('template_directory'); ?>/library/images/icon-theresmore.svg" alt="Explore more">
                     </div>
                 </div>
                 <p class="courier-headline black">Explore other projects that we’re excited about.</p>
@@ -234,23 +233,61 @@ get_header();
             <div class="bg-part full cream"></div>
 
             <div class="center">
-                <div class="featured-card animate-in">
-                    <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-rcs.jpg) no-repeat center center; background-size: cover;"></div>
+                <?php
+                $current_id = get_the_ID();
 
-                    <div class="content-part animate-in">
-                        <div class="circle-callout look-inside">
-                            <span class="main-label">Look Inside</span>
+                // Query the next post
+                $args = array(
+                    'post_type'      => 'work',
+                    'posts_per_page' => 1,
+                    'order'          => 'ASC',
+                    'orderby'        => 'date',
+                    'post__not_in'   => array($current_id),
+                    'date_query'     => array(
+                        array(
+                            'after' => get_the_date('Y-m-d H:i:s', $current_id),
+                            'inclusive' => false,
+                        ),
+                    ),
+                );
+
+                $next_post_query = new WP_Query($args);
+
+                // If no next post found, get the first post
+                if (!$next_post_query->have_posts()) {
+                    $args['date_query'] = array(); // Reset date query to get the first post
+                    $next_post_query = new WP_Query($args);
+                }
+
+                if ($next_post_query->have_posts()):
+                    while ($next_post_query->have_posts()): $next_post_query->the_post();
+                        $card_bg = get_field('work_background_image');
+                        $card_kicker = get_field('work_kicker_title');
+                        $card_title = get_field('work_display_title');
+                ?>
+                    <div class="featured-card animate-in">
+                        <div class="background-part" style="background: url('<?php echo esc_url($card_bg['url']); ?>') no-repeat center center; background-size: cover;"></div>
+
+                        <div class="content-part animate-in">
+                            <div class="circle-callout look-inside">
+                                <span class="main-label">Look Inside</span>
+                            </div>
+
+                            <div class="card-kicker body-headline white"><?php echo $card_kicker; ?></div>
+                            <div class="card-title h-l yellow"><?php echo $card_title; ?></div>
                         </div>
 
-                        <div class="card-kicker body-headline white">In partnership with: Ruth’s Chris Steakhouse</div>
-                        <div class="card-title h-l yellow">Finding It</div>
+                        <a href="<?php the_permalink(); ?>" class="cover-link"></a>
                     </div>
-
-                    <a href="#" class="cover-link"></a>
-                </div>
+                <?php 
+                    endwhile; 
+                    wp_reset_postdata();
+                endif;
+                ?>
             </div>
         </div>
     </section>
+
 </main>
 
 <?php get_footer(); ?>

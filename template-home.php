@@ -11,20 +11,36 @@ get_header();
             <div class="home-card-wrap animate-in">
                 <div class="image-part">
                     <div class="inner1">
-                        <div class="inner2" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/bg-home.jpg) no-repeat center center; background-size: cover;"></div>
+                        <div class="inner2">
+                            <?php 
+                            $bg_image = get_field('intro_background_image');
+                            $bg_video = get_field('intro_background_video');
+                            if ($bg_image) : ?>
+                                <img class="bg-placeholder" src="<?php echo esc_url($bg_image['url']); ?>" alt="<?php echo esc_attr($bg_image['alt']); ?>">
+                            <?php endif; ?>
+                            <?php if ($bg_video) : ?>
+                                <video class="bg-video" autoplay muted loop playsinline>
+                                    <source src="<?php echo esc_url($bg_video['url']); ?>" type="video/mp4">
+                                </video>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
-                <div class="content-line">
-                    <h1 class="card-title yellow">Stories that stick.</h1>
-                </div>
+
+                <?php if (get_field('intro_title')) : ?>
+                    <div class="content-line">
+                        <h1 class="card-title yellow"><?php the_field('intro_title'); ?></h1>
+                    </div>
+                <?php endif; ?>
             </div>
 
-            <div class="content-wrap content-offset-wrap white animate-in delay1">
-                <div class="inner">
-                    <p>We’re all about the journey. We live for adventure—crafting content that breaks the mold, telling character-driven stories and delivering results that hit hard. We take brands off the beaten path, where bold ideas meet real impact.</p>
-                    <p>We are Spry.</p>
+            <?php if (get_field('intro_content')) : ?>
+                <div class="content-wrap content-offset-wrap white animate-in delay1">
+                    <div class="inner">
+                        <?php the_field('intro_content'); ?>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
     </section>
 
@@ -33,42 +49,36 @@ get_header();
         <div class="bg-part top height-337 green"></div>
 
         <div class="center card-space-wrap">
-            <div class="featured-card animate-in">
-                <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-jimmy.jpg) no-repeat center center; background-size: cover;"></div>
-
-                <div class="content-part animate-in">
-                    <div class="circle-callout look-inside">
-                        <span class="main-label">Look Inside</span>
+            <?php 
+            $featured_cards = get_field('featured_cards');
+            if ($featured_cards) :
+                foreach ($featured_cards as $card) : 
+                    $card_bg = get_field('work_background_image', $card->ID);
+            ?>
+                <div class="featured-card animate-in">
+                    <div class="background-part" style="background: url('<?php echo esc_url($card_bg['url']); ?>') no-repeat center center; background-size: cover;"></div>
+                    <div class="content-part animate-in">
+                        <div class="circle-callout look-inside">
+                            <span class="main-label">Look Inside</span>
+                        </div>
+                        <div class="card-kicker body-headline white"><?php the_field('work_kicker_title', $card->ID); ?></div>
+                        <div class="card-title h-l yellow"><?php the_field('work_display_title', $card->ID); ?></div>
                     </div>
-
-                    <div class="card-kicker body-headline white">In partnership with: Baker Tilly</div>
-                    <div class="card-title h-l yellow">Jimmy</div>
+                    <a href="<?php echo get_permalink($card->ID); ?>" class="cover-link"></a>
                 </div>
-
-                <a href="#" class="cover-link"></a>
-            </div>
-
-            <div class="featured-card animate-in">
-                <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-mango.jpg) no-repeat center center; background-size: cover;"></div>
-
-                <div class="content-part animate-in">
-                    <div class="circle-callout look-inside">
-                        <span class="main-label">Look Inside</span>
-                    </div>
-
-                    <div class="card-kicker body-headline white">In partnership with: National Mango Board</div>
-                    <div class="card-title h-l yellow">Origin <br>Stories</div>
-                </div>
-
-                <a href="#" class="cover-link"></a>
-            </div>
+            <?php 
+                endforeach;
+            endif;
+            ?>
         </div>
 
-        <div class="center">
-            <div class="content-wrap content-offset-wrap animate-in">
-                <span class="h-m smaller black">Since 2011, we’ve evolved with one thing in mind—quality work, with quality people. Our journey has taken plenty of twists and turns, and we wouldn’t have it any other way.</span>
+        <?php if (get_field('card_content')) : ?>
+            <div class="center">
+                <div class="content-wrap content-offset-wrap animate-in">
+                    <span class="h-m smaller black"><?php the_field('card_content'); ?></span>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
     </section>
 
     <section class="home-focus">
@@ -77,34 +87,36 @@ get_header();
         <div class="center">
 
             <div class="title-part content-offset-wrap animate-in">
-                <h2 class="h-l black">Focus Areas</h2>
-                <div class="areas">
-                    <span>Branded Content</span>
-                    <span>Commercial</span>
-                    <span>Documentary</span>
-                    <span>Original Content</span>
-                </div>
+                <?php if (get_field('focus_title')) : ?>
+                    <h2 class="h-l black"><?php the_field('focus_title'); ?></h2>
+                <?php endif; ?>
+                <?php if (have_rows('focus_areas')) : ?>
+                    <div class="areas">
+                        <?php while (have_rows('focus_areas')) : the_row(); ?>
+                            <span><?php the_sub_field('area'); ?></span>
+                        <?php endwhile; ?>
+                    </div>
+                <?php endif; ?>
             </div>
 
-            <div class="float-content content-offset-wrap animate-in">
-                <p>We are a creative agency and production house fueled by our passion for purpose. We’re here to elevate your brand with bold, authentic stories that inspire and connect. With striking visuals and impactful content, we don’t just tell your brand’s story—we bring it to life. Let’s create moments that matter, and leave a lasting impression on your audience.</p>
-            </div>
+            <?php if (get_field('focus_content')) : ?>
+                <div class="float-content content-offset-wrap animate-in">
+                    <p><?php the_field('focus_content'); ?></p>
+                </div>
+            <?php endif; ?>
 
             <div class="floating-image-wrap-outer">
                 <div class="floating-image-wrap">
-                    <div class="large-quote green animate-in">Capturing <br>beautiful stories <br>around the <br>world.</div>
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img1.jpg" alt="" class="img1 animate-in">
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img2.jpg" alt="" class="img2 animate-in">
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img3.jpg" alt="" class="img3 animate-in">
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img4.jpg" alt="" class="img4 animate-in">
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img5.jpg" alt="" class="img5 animate-in">
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img6.jpg" alt="" class="img6 animate-in">
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img7.jpg" alt="" class="img7 animate-in">
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img8.jpg" alt="" class="img8 animate-in">
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img9.jpg" alt="" class="img9 animate-in">
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img10.jpg" alt="" class="img10 animate-in">
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img11.jpg" alt="" class="img11 animate-in">
-                    <img src="<?php bloginfo('template_directory'); ?>/library/images/group-img12.jpg" alt="" class="img12 animate-in">
+                    <?php if (get_field('focus_quote')) : ?>
+                        <div class="large-quote green animate-in"><?php the_field('focus_quote'); ?></div>
+                    <?php endif; ?>
+                    <?php 
+                    $focus_images = get_field('focus_images');
+                    if ($focus_images) : 
+                        foreach ($focus_images as $index => $image) : ?>
+                            <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" class="floating-image img<?php echo $index + 1; ?> animate-in">
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -114,63 +126,58 @@ get_header();
     <section class="home-cards home-cards-2">
         <div class="bg-part full cream"></div>
 
-        <div class="center">
-            <div class="large-copy-wrap content-wrap content-offset-wrap add-some animate-in">
-                <div class="h-s upper">Ruth’s Hospitality Group, Inc.</div>
-                <div class="h-m smaller black">“Derek, Josh, and the entire team at Spry are the best production partners I’ve worked with. Their expertise and professionalism were evident throughout the entire process.”</div>
-                <div class="courier-headline">Sarah Porter, Director, Brand &amp; Digital Marketing</div>
+        <?php if (get_field('card_content_2')) : ?>
+            <div class="center">
+                <div class="large-copy-wrap content-wrap content-offset-wrap add-some animate-in">
+                    <?php the_field('card_content_2'); ?>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
 
         <div class="center card-space-wrap">
-            <div class="featured-card animate-in">
-                <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-smith.jpg) no-repeat center center; background-size: cover;"></div>
-
-                <div class="content-part animate-in">
-                    <div class="circle-callout look-inside">
-                        <span class="main-label">Look Inside</span>
+            <?php 
+            $featured_cards = get_field('featured_cards_2');
+            if ($featured_cards) :
+                foreach ($featured_cards as $card) : 
+                    $card_bg = get_field('work_background_image', $card->ID);
+            ?>
+                <div class="featured-card animate-in">
+                    <div class="background-part" style="background: url('<?php echo esc_url($card_bg['url']); ?>') no-repeat center center; background-size: cover;"></div>
+                    <div class="content-part animate-in">
+                        <div class="circle-callout look-inside">
+                            <span class="main-label">Look Inside</span>
+                        </div>
+                        <div class="card-kicker body-headline white"><?php the_field('work_kicker_title', $card->ID); ?></div>
+                        <div class="card-title h-l yellow"><?php the_field('work_display_title', $card->ID); ?></div>
                     </div>
-
-                    <div class="card-kicker body-headline white">In partnership with: Smith</div>
-                    <div class="card-title h-l yellow">that one <br>bite</div>
+                    <a href="<?php echo get_permalink($card->ID); ?>" class="cover-link"></a>
                 </div>
-
-                <a href="#" class="cover-link"></a>
-            </div>
-
-            <div class="featured-card animate-in">
-                <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-rcs.jpg) no-repeat center center; background-size: cover;"></div>
-
-                <div class="content-part animate-in">
-                    <div class="circle-callout look-inside">
-                        <span class="main-label">Look Inside</span>
-                    </div>
-
-                    <div class="card-kicker body-headline white">In partnership with: Ruth’s Chris Steakhouse</div>
-                    <div class="card-title h-l yellow">Finding It</div>
-                </div>
-
-                <a href="#" class="cover-link"></a>
-            </div>
+            <?php 
+                endforeach;
+            endif;
+            ?>
         </div>
     </section>
 
     <section class="end-cta">
         <div class="bg-part full green"></div>
 
-        <a href="#" class="circle-callout more-work animate-in">
+        <a href="/our-work/" class="circle-callout more-work animate-in">
             <span class="main-label">More Work</span>
         </a>
 
         <div class="center animate-in">
-
-            <p class="white">Well, that was fun.</p>
-            <div class="h-xl yellow">Like what <br>you see?</div>
-
-            <a href="#" class="cta-btn">
-                <span>Let's Talk</span>
-            </a>
-
+            <?php if (get_field('cta_text')) : ?>
+                <p class="white"><?php the_field('cta_text'); ?></p>
+            <?php endif; ?>
+            <?php if (get_field('cta_text_secondary')) : ?>
+                <div class="h-xl yellow"><?php the_field('cta_text_secondary'); ?></div>
+            <?php endif; ?>
+            <?php if (get_field('cta_button_text') && get_field('cta_button_link')) : ?>
+                <a href="<?php the_field('cta_button_link'); ?>" class="cta-btn">
+                    <span><?php the_field('cta_button_text'); ?></span>
+                </a>
+            <?php endif; ?>
         </div>
     </section>
 </main>

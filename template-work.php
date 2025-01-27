@@ -8,21 +8,47 @@ get_header();
         <div class="bg-part full green"></div>
 
         <div class="center card-space-wrap">
-            <div class="featured-card less-bottom animate-in">
-                <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-jimmy.jpg) no-repeat center center; background-size: cover;"></div>
+            <?php
+            // Get the featured post
+            $featured_args = array(
+                'post_type'      => 'work',
+                'posts_per_page' => 1,
+                'tax_query'      => array(
+                    array(
+                        'taxonomy' => 'post_tag',
+                        'field'    => 'slug',
+                        'terms'    => 'featured'
+                    )
+                )
+            );
 
-                <div class="content-part animate-in">
-                    <div class="circle-callout look-inside">
-                        <span class="main-label">Look Inside</span>
+            $featured_query = new WP_Query($featured_args);
+
+            if ($featured_query->have_posts()) :
+                while ($featured_query->have_posts()) : $featured_query->the_post();
+                    $featured_id = get_the_ID();
+                    $featured_bg = get_field('work_background_image');
+            ?>
+                <div class="featured-card less-bottom animate-in">
+                    <div class="background-part" style="background: url('<?php echo esc_url($featured_bg['url']); ?>') no-repeat center center; background-size: cover;"></div>
+
+                    <div class="content-part animate-in">
+                        <div class="circle-callout look-inside">
+                            <span class="main-label">Look Inside</span>
+                        </div>
+
+                        <div class="card-kicker body-headline white"><?php the_field('work_kicker_title'); ?></div>
+                        <div class="card-title h-l yellow"><?php the_field('work_display_title'); ?></div>
                     </div>
 
-                    <div class="card-kicker body-headline white">In partnership with: Baker Tilly</div>
-                    <div class="card-title h-l yellow">Jimmy</div>
+                    <a href="<?php the_permalink(); ?>" class="cover-link"></a>
                 </div>
-
-                <a href="#" class="cover-link"></a>
-            </div>
-
+            <?php 
+                endwhile; 
+                wp_reset_postdata();
+            endif;
+            ?>
+            
             <h1 class="h-xl yellow support-title smaller-start animate-in">Embrace this precious life.</h1>
         </div>
 
@@ -45,95 +71,49 @@ get_header();
         </div>
 
         <div class="center card-space-wrap">
-            <div class="featured-card animate-in">
-                <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-ktm.jpg) no-repeat center center; background-size: cover;"></div>
+            <?php
+            // Get all work posts except the featured one
+            $work_args = array(
+                'post_type'      => 'work',
+                'posts_per_page' => -1,
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+                'post__not_in'   => array($featured_id), // Exclude featured post
+                'tax_query'      => array(
+                    array(
+                        'taxonomy' => 'post_tag',
+                        'field'    => 'slug',
+                        'terms'    => 'featured',
+                        'operator' => 'NOT IN'
+                    )
+                )
+            );
 
-                <div class="content-part animate-in">
-                    <div class="circle-callout look-inside">
-                        <span class="main-label">Look Inside</span>
+            $work_query = new WP_Query($work_args);
+
+            if ($work_query->have_posts()) :
+                while ($work_query->have_posts()) : $work_query->the_post();
+                    $work_bg = get_field('work_background_image');
+            ?>
+                <div class="featured-card animate-in">
+                    <div class="background-part" style="background: url('<?php echo esc_url($work_bg['url']); ?>') no-repeat center center; background-size: cover;"></div>
+
+                    <div class="content-part animate-in">
+                        <div class="circle-callout look-inside">
+                            <span class="main-label">Look Inside</span>
+                        </div>
+
+                        <div class="card-kicker body-headline white"><?php the_field('work_kicker_title'); ?></div>
+                        <div class="card-title h-l yellow"><?php the_field('work_display_title'); ?></div>
                     </div>
 
-                    <div class="card-kicker body-headline white">In partnership with: KTM</div>
-                    <div class="card-title h-l yellow">Lone <br>Rider</div>
+                    <a href="<?php the_permalink(); ?>" class="cover-link"></a>
                 </div>
-
-                <a href="#" class="cover-link"></a>
-            </div>
-
-            <div class="featured-card animate-in">
-                <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-mango.jpg) no-repeat center center; background-size: cover;"></div>
-
-                <div class="content-part animate-in">
-                    <div class="circle-callout look-inside">
-                        <span class="main-label">Look Inside</span>
-                    </div>
-
-                    <div class="card-kicker body-headline white">In partnership with: National Mango Board</div>
-                    <div class="card-title h-l yellow">Origin <br>Stories</div>
-                </div>
-
-                <a href="#" class="cover-link"></a>
-            </div>
-
-            <div class="featured-card animate-in">
-                <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-smith.jpg) no-repeat center center; background-size: cover;"></div>
-
-                <div class="content-part animate-in">
-                    <div class="circle-callout look-inside">
-                        <span class="main-label">Look Inside</span>
-                    </div>
-
-                    <div class="card-kicker body-headline white">In partnership with: Smith</div>
-                    <div class="card-title h-l yellow">that one <br>bite</div>
-                </div>
-
-                <a href="#" class="cover-link"></a>
-            </div>
-
-            <div class="featured-card animate-in">
-                <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-rcs.jpg) no-repeat center center; background-size: cover;"></div>
-
-                <div class="content-part animate-in">
-                    <div class="circle-callout look-inside">
-                        <span class="main-label">Look Inside</span>
-                    </div>
-
-                    <div class="card-kicker body-headline white">In partnership with: Ruth’s Chris Steakhouse</div>
-                    <div class="card-title h-l yellow">Finding It</div>
-                </div>
-
-                <a href="#" class="cover-link"></a>
-            </div>
-
-            <div class="featured-card animate-in">
-                <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-smith2.jpg) no-repeat center center; background-size: cover;"></div>
-
-                <div class="content-part animate-in">
-                    <div class="circle-callout look-inside">
-                        <span class="main-label">Look Inside</span>
-                    </div>
-
-                    <div class="card-kicker body-headline white">In partnership with: Smith</div>
-                    <div class="card-title h-l yellow">Caloosahatchee <br>Cowboy</div>
-                </div>
-
-                <a href="#" class="cover-link"></a>
-            </div>
-
-            <div class="featured-card animate-in">
-                <div class="background-part" style="background: url(<?php bloginfo('template_directory'); ?>/library/images/card-bg-smith3.jpg) no-repeat center center; background-size: cover;"></div>
-
-                <div class="content-part animate-in">
-                    <div class="circle-callout look-inside">
-                        <span class="main-label">Look Inside</span>
-                    </div>
-
-                    <div class="card-kicker body-headline white">In partnership with: Smith</div>
-                    <div class="card-title h-l yellow">Zero</div>
-                </div>
-
-                <a href="#" class="cover-link"></a>
-            </div>
+            <?php 
+                endwhile; 
+                wp_reset_postdata();
+            endif;
+            ?>
         </div>
 
         <div class="center animate-in">
@@ -146,19 +126,16 @@ get_header();
     <section class="end-cta">
         <div class="bg-part full green"></div>
 
-        <a href="#" class="circle-callout more-work animate-in">
+        <a href="/our-work/" class="circle-callout more-work animate-in">
             <span class="main-label">More Work</span>
         </a>
 
         <div class="center animate-in">
-
-            <p class="white">Well, that was fun.</p>
-            <div class="h-xl yellow">Like what <br>you see?</div>
-
-            <a href="#" class="cta-btn">
-                <span>Let's Talk</span>
+            <p class="white"><?php the_field('cta_text'); ?></p>
+            <div class="h-xl yellow"><?php the_field('cta_secondary_text'); ?></div>
+            <a href="<?php the_field('cta_button_link'); ?>" class="cta-btn">
+                <span><?php the_field('cta_button_text'); ?></span>
             </a>
-
         </div>
     </section>
 </main>

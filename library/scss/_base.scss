@@ -22,20 +22,29 @@ html {
 
 /*FONT STYLES*/
 
+@font-face {
+	font-family: 'Schnyder M Web';
+	src: url('../fonts/Schnyder-MDemi-Web.woff2') format('woff2'),
+		 url('../fonts/Schnyder-MDemi-Web.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
 .heading-font {
-  font-family: ivypresto-display, serif;
-  font-style: normal;
+	font-family: 'Schnyder M Web', serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 .primary-font {
-  font-family: effra, sans-serif;
-  font-style: normal;
+	font-family: effra, sans-serif;
+	font-style: normal;
 }
 
 .courier {
-  font-family: courier-std, monospace;
-  font-weight: 400;
-  font-style: normal;
+	font-family: courier-std, monospace;
+	font-weight: 400;
+	font-style: normal;
 }
 
 h1, h2, h3, h4, h5,
@@ -603,7 +612,8 @@ body.page-template-template-contact {
 		background: $black;
 	}
 
-	&.green {
+	&.green,
+	&.color0 {
 		background: $green;
 	}
 
@@ -611,11 +621,13 @@ body.page-template-template-contact {
 		background: $yellow;
 	}
 
-	&.cream {
+	&.cream,
+	&.color1 {
 		background: $cream;
 	}
 
-	&.white {
+	&.white,
+	&.color2 {
 		background: $white;
 	}
 }
@@ -645,7 +657,25 @@ body.page-template-template-contact {
 			height: 100%;
 			top: 0;
 			left: 0;
-			border-radius: 0 0 20px 20px;
+
+			.bg-placeholder {
+		        position: absolute;
+		        width: 100%;
+		        height: 100%;
+		        object-fit: cover;
+		        transition: opacity 1s ease-in-out;
+		        border-radius: 0 0 20px 20px;
+		    }
+
+		    .bg-video {
+		        position: absolute;
+		        width: 100%;
+		        height: 100%;
+		        object-fit: cover;
+		        opacity: 0;
+		        transition: opacity 1s ease-in-out;
+		        border-radius: 0 0 20px 20px;
+		    }
 		}
 	}
 
@@ -776,6 +806,8 @@ body.page-template-template-contact {
 			display: none;
 			border-radius: 10px;
 			z-index: 1;
+			transition: transform 0.2s ease-out;
+        	will-change: transform;
 		}
 
 		.img2 {
@@ -1573,5 +1605,32 @@ body.page-template-template-contact {
 			bottom: -20px;
 			left: 20px;
 		}
+	}
+}
+
+.standard-page-wrap {
+	position: relative;
+
+	.intro-text-part,
+	h1 {
+		margin-bottom: 0 !important;
+	}
+}
+
+.content-inner-normal-page-wrap {
+	position: relative;
+	max-width: 1200px;
+
+	h2, h3, h4, h5 {
+		margin-bottom: 15px;
+		margin-top: 55px;
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	h2, h3 {
+		@extend .h-m;
 	}
 }

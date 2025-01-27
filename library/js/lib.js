@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", function () {
+    var video = document.querySelector(".bg-video");
+    var image = document.querySelector(".bg-placeholder");
+
+    video.addEventListener("canplaythrough", function () {
+        image.style.opacity = "0";
+        video.style.opacity = "1";
+    });
+});
+
 jQuery(document).ready(function($) {
     var ajax_url = SPRY.ajaxurl;
 
